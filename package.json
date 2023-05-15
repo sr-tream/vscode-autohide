@@ -1,5 +1,5 @@
 {
-    "name": "vscode-autohide",
+    "name": "vscode-autohide-fork",
     "displayName": "Auto Hide (fork)",
     "description": "A tool to autohide the sidebar and terminal panel.",
     "version": "1.0.8",
