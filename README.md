@@ -2,37 +2,43 @@
 
 # Auto Hide
 
-Extension install page: <https://marketplace.visualstudio.com/items?itemName=sirmspencer.vscode-autohide>
+Extension install page: <https://marketplace.visualstudio.com/items?itemName=sr-team.vscode-autohide>
 
 ## Features
 
 ### Auto-hide side bar
 Causes the side bar to be hidden whenever the user clicks into the text editor.
 
-I highly recommend trying the sidbar on the right side.  The side bar does not so when on the left, the editor text will shift when the side panel opening and closeing.
-
 ![Auto-hide side bar](Images/Features/AutoHideSideBar.gif)
 
 ### Auto-hide bottom panel
 Same thing as above, except for the bottom panel (output, terminal, etc. are contained in the panel).
 
+### Fork differences
+- Fixed clicks in output window
+- Added option to disable auto hide during debugging
+- Change logic from close primary side bar to close left/right side bars
+- Removed auto hide delay 
+
 ## Settings
 
-* `autoHide.autoHideSideBar`: Hide the side bar when the user clicks into a text editor. [boolean, default: `true`]
+* `autoHide.autoHideRightSideBar`: Hide the right side bar when the user clicks into a text editor. [boolean, default: `true`]
+* `autoHide.autoHideLeftSideBar`: Hide the left side bar when the user clicks into a text editor. [boolean, default: `true`]
 * `autoHide.autoHidePanel`: Hide the panel (output, terminal, etc.) when the user clicks into a text editor. [boolean, default: `true`]
 * `autoHide.autoHideReferences`: Hide the References panel (`Go to References`) when the user clicks into a text editor. [boolean, default: `true`]
-* `autoHide.sideBarDelay`: How long to wait before hiding the side bar. A delay prevents text from being selected. A longer delay allows the horizontal scroll to adjust to the change in selection before the side bar hiding causes the horizontal scroll to adjust, avoiding conflicts. [number, default: `450`]
-* `autoHide.panelDelay`: How long to wait before hiding the panel. Same as for the side bar when the panel is on the side.  If the panel is on the bottom, there is no need for delay. [number, default: `300`]
-* `autoHide.hideOnOpen`: Hide side bar and panel when VSCode first opens. [boolean, default: `true`]
+* `autoHide.hideOnOpen`: Hide side bars and panel when VSCode first opens. [boolean, default: `true`]
+* `autoHide.hideOnDebug`: Hide side bars and panel when the user clicks into a text editor in debug mode. [boolean, default: `true`]
 
 ## Commands
 
-* `autoHide.toggleHideSideBar`: Toggle `autoHide.autoHideSideBar` setting for current workspace. Use this command to pin/unpin the side bar.
+* `autoHide.toggleHideRightSideBar`: Toggle `autoHide.toggleHideRightSideBar` setting for current workspace. Use this command to pin/unpin the right side bar.
+* `autoHide.toggleHideLeftSideBar`: Toggle `autoHide.toggleHideLeftSideBar` setting for current workspace. Use this command to pin/unpin the left side bar.
 * `autoHide.toggleHidePanel`: Toggle `autoHide.autoHidePanel` setting for current workspace. Use this command to pin/unpin the panel.
+* `autoHide.toggleHideOnDebug`: Toggle `autoHide.toggleHideOnDebug` setting for current workspace.
 
 ## Developing
 
-1) Clone/download repo: https://github.com/sirmspencer/vscode-autohide.git
+1) Clone/download repo: https://github.com/sr-tream/vscode-autohide.git
 2) Make code changes in "src" folder.
 3) Run "npm run compile". (this will start compiler in watch mode) [if editing in vscode, Ctrl+Shift+B also works]
 4) In vscode, open the Debug panel and launch the extension from there.

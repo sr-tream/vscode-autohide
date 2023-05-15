@@ -1,11 +1,11 @@
 {
     "name": "vscode-autohide",
-    "displayName": "Auto Hide",
+    "displayName": "Auto Hide (fork)",
     "description": "A tool to autohide the sidebar and terminal panel.",
-    "version": "1.0.6",
-    "publisher": "sirmspencer",
+    "version": "1.0.8",
+    "publisher": "sr-team",
     "repository": {
-        "url": "https://github.com/sirmspencer/vscode-autohide"
+        "url": "https://github.com/sr-tream/vscode-autohide"
     },
     "icon": "Images/Icons/Logo_128.png",
     "engines": {
@@ -28,7 +28,7 @@
         "sidebar"
     ],
     "activationEvents": [
-        "*"
+        "onStartupFinished"
     ],
     "main": "./out/src/extension",
     "contributes": {
@@ -36,15 +36,15 @@
             "type": "object",
             "title": "Auto Hide configuration",
             "properties": {
-                "autoHide.autoHideSideBar": {
+                "autoHide.autoHideRightSideBar": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Hide the side bar when the user clicks into a text editor."
+                    "description": "Hide the right side bar when the user clicks into a text editor."
                 },
-                "autoHide.autoHideAuxiliaryBar": {
+                "autoHide.autoHideLeftSideBar": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Hide the auxiliary bar (second side bar) when the user clicks into a text editor."
+                    "description": "Hide the left side bar when the user clicks into a text editor."
                 },
                 "autoHide.autoHidePanel": {
                     "type": "boolean",
@@ -56,38 +56,38 @@
                     "default": true,
                     "description": "Hide the References panel (`Go to References`) when the user clicks into a text editor."
                 },
-                "autoHide.sideBarDelay": {
-                    "type": "number",
-                    "default": 450,
-                    "description": "How long to wait before hiding the side bar. A delay prevents text from being selected. A longer delay allows the horizontal scroll to adjust to the change in selection before the side bar hiding causes the horizontal scroll to adjust, avoiding conflicts."
-                },
-                "autoHide.panelDelay": {
-                    "type": "number",
-                    "default": 300,
-                    "description": "How long to wait before hiding the panel. Same as for the side bar when the panel is on the side.  If the panel is on the bottom, there is no need for delay."
-                },
                 "autoHide.hideOnOpen": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Hide side bar and panel when VSCode first opens."
+                    "description": "Hide side bars and panel when VSCode first opens."
+                },
+                "autoHide.hideOnDebug": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Hide side bars and panel when the user clicks into a text editor in debug mode."
                 }
             }
         },
         "commands": [
             {
-                "command": "autoHide.toggleHideSideBar",
+                "command": "autoHide.toggleHideRightSideBar",
                 "category": "Auto Hide",
-                "title": "Toggle Auto Hide Side Bar for Current Workspace"
+                "title": "Toggle Auto Hide Right Side Bar for Current Workspace"
             },
             {
-                "command": "autoHide.toggleHideAuxiliaryBar",
+                "command": "autoHide.toggleHideLeftSideBar",
                 "category": "Auto Hide",
-                "title": "Toggle Auto Hide Auxiliary Bar for Current Workspace"
+                "title": "Toggle Auto Hide Left Side Bar for Current Workspace"
             },
             {
                 "command": "autoHide.toggleHidePanel",
                 "category": "Auto Hide",
                 "title": "Toggle Auto Hide Panel for Current Workspace"
+            },
+            {
+                "command": "autoHide.toggleHideOnDebug",
+                "category": "Auto Hide",
+                "title": "Toggle Auto Hide Side Bars and Panel in debug mode for Current Workspace"
             }
         ]
     },
@@ -102,7 +102,7 @@
         "@types/mocha": "^2.2.32",
         "@types/node": "^6.0.40",
         "mocha": "^7.2.0",
-        "typescript": "^2.9.2",
+        "typescript": "^3.9.7",
         "vscode": "^1.1.36"
     }
 }
