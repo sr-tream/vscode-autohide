@@ -16,13 +16,9 @@ export function activate(context: vscode.ExtensionContext) {
         return { left: "workbench.action.closeSidebar", right: "workbench.action.closeAuxiliaryBar" };
     };
 
-    function DoCloseSideBarsAndPanel() {
+    function DoCloseSideBars() {
         let config = vscode.workspace.getConfiguration("autoHide");
         let actions = GetSidebarCloseActions();
-
-        if (config.autoHidePanel) {
-            vscode.commands.executeCommand("workbench.action.closePanel");
-        }
 
         if (config.autoHideRightSideBar) {
             vscode.commands.executeCommand(actions.right);
@@ -33,30 +29,47 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    if (vscode.workspace.getConfiguration("autoHide").hideOnOpen) {
-        DoCloseSideBarsAndPanel();
+    function DoClosePanel() {
+        let config = vscode.workspace.getConfiguration("autoHide");
+
+        if (config.autoHidePanel) {
+            vscode.commands.executeCommand("workbench.action.closePanel");
+        }
+    }
+
+    let config = vscode.workspace.getConfiguration("autoHide");
+    if (config.hideOnDebug !== undefined && config.hideOnDebug !== null) {
+        config.update("hideSideBarsOnDebug", config.hideOnDebug);
+        config.update("hidePanelOnDebug", config.hideOnDebug);
+        config.update("hideOnDebug", undefined);
+    }
+    if (config.hideOnOpen) {
+        DoCloseSideBars();
+        DoClosePanel();
     };
 
     vscode.window.onDidChangeTextEditorSelection(selection => {
         let config = vscode.workspace.getConfiguration("autoHide");
         let path = vscode.window.activeTextEditor.document.fileName;
         let pathIsFile = path.includes(".") || path.includes("\\") || path.includes("/");
-        let scheme = selection.textEditor.document.uri.scheme
-        let activeDebug = !!vscode.debug.activeDebugSession
+        let scheme = selection.textEditor.document.uri.scheme;
 
         if (selection.kind != TextEditorSelectionChangeKind.Mouse // selection was not from a click
             || selection.selections.length != 1                   // no selections or multiselections
             || selection.selections.find(a => a.isEmpty) == null  // multiselections
             || !pathIsFile                                        // The debug window editor
-            || scheme == "output"                                 // The output window
-            || (activeDebug && !config.hideOnDebug)) {            // The debug mode
+            || scheme == "output") {                              // The output window
             return;
         } else {
-            if (config.autoHideReferences) {
-                vscode.commands.executeCommand("closeReferenceSearch");
+            let activeDebug = !!vscode.debug.activeDebugSession;
+            if (!activeDebug || config.hideSideBarsOnDebug) {
+                if (config.autoHideReferences) {
+                    vscode.commands.executeCommand("closeReferenceSearch");
+                }
+                DoCloseSideBars();
             }
 
-            DoCloseSideBarsAndPanel();
+            if (!activeDebug || config.hidePanelOnDebug) DoClosePanel();
         };
     });
 
@@ -76,9 +89,14 @@ export function activate(context: vscode.ExtensionContext) {
             await config.update("autoHideLeftSideBar", !config.autoHideLeftSideBar, vscode.ConfigurationTarget.Workspace);
         }));
     context.subscriptions.push(
-        vscode.commands.registerCommand("autoHide.toggleHideOnDebug", async () => {
+        vscode.commands.registerCommand("autoHide.toggleHideSideBarsOnDebug", async () => {
             let config = vscode.workspace.getConfiguration("autoHide");
-            await config.update("hideOnDebug", !config.hideOnDebug, vscode.ConfigurationTarget.Workspace);
+            await config.update("hideSideBarsOnDebug", !config.hideSideBarsOnDebug, vscode.ConfigurationTarget.Workspace);
+        }));
+    context.subscriptions.push(
+        vscode.commands.registerCommand("autoHide.toggleHidePanelOnDebug", async () => {
+            let config = vscode.workspace.getConfiguration("autoHide");
+            await config.update("hidePanelOnDebug", !config.hidePanelOnDebug, vscode.ConfigurationTarget.Workspace);
         }));
 }
 

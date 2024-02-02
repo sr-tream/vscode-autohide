@@ -2,7 +2,7 @@
     "name": "vscode-autohide-fork",
     "displayName": "Auto Hide (fork)",
     "description": "A tool to autohide the sidebar and terminal panel.",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "publisher": "sr-team",
     "repository": {
         "url": "https://github.com/sr-tream/vscode-autohide"
@@ -61,10 +61,15 @@
                     "default": true,
                     "description": "Hide side bars and panel when VSCode first opens."
                 },
-                "autoHide.hideOnDebug": {
+                "autoHide.hideSideBarsOnDebug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Hide Side Bars when the user clicks into a text editor in debug mode."
+                },
+                "autoHide.hidePanelOnDebug": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Hide side bars and panel when the user clicks into a text editor in debug mode."
+                    "description": "Hide Panel when the user clicks into a text editor in debug mode."
                 }
             }
         },
@@ -85,9 +90,14 @@
                 "title": "Toggle Auto Hide Panel for Current Workspace"
             },
             {
-                "command": "autoHide.toggleHideOnDebug",
+                "command": "autoHide.toggleHideSideBarsOnDebug",
                 "category": "Auto Hide",
-                "title": "Toggle Auto Hide Side Bars and Panel in debug mode for Current Workspace"
+                "title": "Toggle autohide Side Bars in debug mode for Current Workspace"
+            },
+            {
+                "command": "autoHide.toggleHidePanelOnDebug",
+                "category": "Auto Hide",
+                "title": "Toggle autohide Panel in debug mode for Current Workspace"
             }
         ]
     },
