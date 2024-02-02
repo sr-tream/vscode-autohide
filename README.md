@@ -27,14 +27,16 @@ Same thing as above, except for the bottom panel (output, terminal, etc. are con
 * `autoHide.autoHidePanel`: Hide the panel (output, terminal, etc.) when the user clicks into a text editor. [boolean, default: `true`]
 * `autoHide.autoHideReferences`: Hide the References panel (`Go to References`) when the user clicks into a text editor. [boolean, default: `true`]
 * `autoHide.hideOnOpen`: Hide side bars and panel when VSCode first opens. [boolean, default: `true`]
-* `autoHide.hideOnDebug`: Hide side bars and panel when the user clicks into a text editor in debug mode. [boolean, default: `true`]
+* `autoHide.hideSideBarsOnDebug`: Hide side bars when the user clicks into a text editor in debug mode. [boolean, default: `false`]
+* `autoHide.hidePanelOnDebug`: Hide panel when the user clicks into a text editor in debug mode. [boolean, default: `true`]
 
 ## Commands
 
 * `autoHide.toggleHideRightSideBar`: Toggle `autoHide.toggleHideRightSideBar` setting for current workspace. Use this command to pin/unpin the right side bar.
 * `autoHide.toggleHideLeftSideBar`: Toggle `autoHide.toggleHideLeftSideBar` setting for current workspace. Use this command to pin/unpin the left side bar.
 * `autoHide.toggleHidePanel`: Toggle `autoHide.autoHidePanel` setting for current workspace. Use this command to pin/unpin the panel.
-* `autoHide.toggleHideOnDebug`: Toggle `autoHide.toggleHideOnDebug` setting for current workspace.
+* `autoHide.toggleHideSideBarsOnDebug`: Toggle `autoHide.hideSideBarsOnDebug` setting for current workspace.
+* `autoHide.toggleHidePanelOnDebug`: Toggle `autoHide.hidePanelOnDebug` setting for current workspace.
 
 ## Developing
 
